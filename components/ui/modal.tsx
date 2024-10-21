@@ -36,8 +36,8 @@ const Modal = ({
             <DialogTitle>{title}</DialogTitle>
             <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
+          <div>{children}</div>
         </DialogContent>
-        <div>{children}</div>
       </Dialog>
     </div>
   );
