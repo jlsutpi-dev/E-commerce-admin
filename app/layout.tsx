@@ -1,9 +1,14 @@
+"use client";
+
 import {
   ClerkProvider,
   SignInButton,
   SignedIn,
   SignedOut,
 } from "@clerk/nextjs";
+
+import ModalProvider from "@/providers/modal-provider";
+
 import "./globals.css";
 export default function RootLayout({
   children,
@@ -18,6 +23,7 @@ export default function RootLayout({
             <SignInButton />
           </SignedOut>
           <SignedIn></SignedIn>
+          <ModalProvider />
           {children}
         </body>
       </html>
