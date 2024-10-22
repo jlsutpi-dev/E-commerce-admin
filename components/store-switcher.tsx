@@ -53,7 +53,7 @@ const StoreSwitcher = ({ className, items = [] }: StoreSwitcherProps) => {
 
   const onStoreSelect = (store: { value: string; label: string }) => {
     setOpen(true);
-    router.push(`${store.value}`);
+    router.push(`/${store.value}`);
   };
   return (
     <Popover open={open} onOpenChange={setOpen}>
