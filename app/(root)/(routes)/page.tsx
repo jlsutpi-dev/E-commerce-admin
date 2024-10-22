@@ -1,8 +1,5 @@
 "use client";
 
-import { UserButton } from "@clerk/nextjs";
-
-import { Button } from "@/components/ui/button";
 import { useStoreModal } from "@/hooks/use-store-modal";
 import { useEffect } from "react";
 
@@ -17,13 +14,7 @@ const SetupPage = () => {
       onOpen();
     }
   }, [isOpen, onOpen]);
-  return (
-    <div className=" p-4">
-      <UserButton />
-
-      <Button size={"default"}>click me</Button>
-    </div>
-  );
+  return null;
 };
 
 export default SetupPage;
