@@ -15,7 +15,6 @@ export async function PATCH(
     }
 
     if (!name && name.trim() === 0) {
-      console.log("not ok");
       return new NextResponse("Name is required", { status: 400 });
     }
 
@@ -28,7 +27,6 @@ export async function PATCH(
         name,
       },
     });
-    console.log(store);
     return NextResponse.json(store);
   } catch (error) {
     console.log("[STORE_PATCH]", error);

@@ -17,7 +17,6 @@ export async function POST(req: Request) {
     const store = await db.store.create({ data: { name, userId } });
     return NextResponse.json(store);
   } catch (error) {
-    // thorw error
     console.log("[STORE_POST]", error);
     return new NextResponse("Internal error", { status: 500 });
   }

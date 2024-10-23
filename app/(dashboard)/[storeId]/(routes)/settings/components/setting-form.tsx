@@ -23,6 +23,7 @@ import {
 import { Heading } from "@/components/ui/Heading";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { useOrigin } from "@/hooks/use-origin";
 
 interface SettingFormProps {
   initialData: Store;
@@ -37,16 +38,15 @@ export const SettingForm = ({ initialData }: SettingFormProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const params = useParams();
   const router = useRouter();
+  const origin = useOrigin();
 
   const form = useForm<SettingFromValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
   });
-  console.log(params.storeId);
 
   // setting data change handler
   const onSubmit = async (data: SettingFromValues) => {
-    // console.log(data);
     try {
       setLoading(true);
       await axios.patch(`/api/stores/${params.storeId}`, data);
@@ -54,6 +54,7 @@ export const SettingForm = ({ initialData }: SettingFormProps) => {
       toast.success("store updated");
     } catch (error) {
       toast.error("Something went wrong");
+      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -69,6 +70,7 @@ export const SettingForm = ({ initialData }: SettingFormProps) => {
     } catch (error) {
       toast.error("Make sure you remove all categories and products first ");
       setLoading(false);
+      console.log(error);
     }
   };
   return (
@@ -81,7 +83,10 @@ export const SettingForm = ({ initialData }: SettingFormProps) => {
         onConfirm={onDelete}
         loading={loading}
       />
-      <div className="flex items-center justify-between">
+      <div
+        style={{ marginTop: "0px" }}
+        className="flex items-center justify-between"
+      >
         <Heading title="Setting" description="manage store preference" />
         <Button
           disabled={loading}

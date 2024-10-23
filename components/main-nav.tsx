@@ -10,12 +10,16 @@ const MainNav = ({
 }: React.HtmlHTMLAttributes<HTMLElement>) => {
   const pathName = usePathname();
   const params = useParams();
-  console.log(params);
   const routes = [
     {
       href: `/${params.storeId}/settings`,
       label: "Settings",
       active: pathName === `/${params.storeId}/settings`,
+    },
+    {
+      href: `/${params.storeId}/billboards`,
+      label: "Billboards",
+      active: pathName === `/${params.storeId}/billboards`,
     },
     {
       href: `/${params.storeId} `,
