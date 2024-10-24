@@ -19,7 +19,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Heading } from "@/components/ui/Heading";
+import { Heading } from "@/components/ui/heading";
 import ImageUpload from "@/components/ui/image-upload";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -39,7 +39,6 @@ export const BillboardForm = ({ initialData }: BillboardFormProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const params = useParams();
   const router = useRouter();
-  console.log(initialData, "initialdata");
 
   const title = initialData ? "Edit billboard" : "Create billboard";
   const description = initialData ? "Edit a billboard " : "Add a new billboard";
@@ -92,7 +91,8 @@ export const BillboardForm = ({ initialData }: BillboardFormProps) => {
         `/api/${params.storeId}/billboards/${params.billboardId}`
       );
       router.refresh();
-      router.push("/");
+      router.push(`${params.storeId}/billboards`);
+
       toast.success("Billboard deleted.");
     } catch (error) {
       toast.error(
@@ -100,11 +100,12 @@ export const BillboardForm = ({ initialData }: BillboardFormProps) => {
       );
       console.log(error);
       setLoading(false);
+    } finally {
+      setOpen(false);
     }
   };
   return (
     <>
-      <button onClick={test}>onclkc</button>
       <AlertModal
         isOpen={open}
         onClose={() => {
@@ -181,7 +182,6 @@ export const BillboardForm = ({ initialData }: BillboardFormProps) => {
           </Button>
         </form>
       </Form>
-      <Separator />
     </>
   );
 };
