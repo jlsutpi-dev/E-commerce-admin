@@ -28,7 +28,6 @@ import { useStoreModal } from "@/hooks/use-store-modal";
 import { cn } from "@/lib/utils";
 import { Store } from "@prisma/client";
 
-// import { PopoverTriggerProps } from "@radix-ui/react-popover";
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<
   typeof PopoverTrigger
 >;

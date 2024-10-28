@@ -9,11 +9,10 @@ export async function POST(
   try {
     const { userId } = auth();
     const body = await req.json();
-    const { label, imageUrl } = body;
+    const { name, value } = body;
 
-    if (!label) return new NextResponse("Label is required", { status: 400 });
-    if (!imageUrl)
-      return new NextResponse("ImageUrl is required", { status: 400 });
+    if (!name) return new NextResponse("Name is required", { status: 400 });
+    if (!value) return new NextResponse("Value is required", { status: 400 });
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -30,12 +29,12 @@ export async function POST(
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    const billboard = await db.billboard.create({
-      data: { imageUrl, label, storeId: params.storeId },
+    const color = await db.color.create({
+      data: { name, value, storeId: params.storeId },
     });
-    return NextResponse.json(billboard);
+    return NextResponse.json(color);
   } catch (error) {
-    console.log("[BILLBOARD_POST]", error);
+    console.log("[COLOR_POST]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
@@ -49,12 +48,12 @@ export async function GET(
       return new NextResponse("StoreId is required.", { status: 400 });
     }
 
-    const billboards = await db.billboard.findMany({
+    const color = await db.color.findMany({
       where: { storeId: params.storeId },
     });
-    return NextResponse.json(billboards);
+    return NextResponse.json(color);
   } catch (error) {
-    console.log("[BILLBOARD_GET]", error);
+    console.log("[COLOR_GET]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }

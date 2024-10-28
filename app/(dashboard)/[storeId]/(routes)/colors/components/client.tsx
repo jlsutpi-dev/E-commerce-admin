@@ -2,7 +2,7 @@
 
 import { Plus } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { BillboardColumn, columns } from "./columns";
+import { ColorColumn, columns } from "./columns";
 
 import ApiList from "@/components/ui/api-list";
 import { Button } from "@/components/ui/button";
@@ -10,11 +10,11 @@ import { DataTable } from "@/components/ui/data-table";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 
-interface BIllBoardsClientProps {
-  data: BillboardColumn[];
+interface ColorsClientProps {
+  data: ColorColumn[];
 }
 
-const BIllBoardsClient = ({ data }: BIllBoardsClientProps) => {
+const ColorsClient = ({ data }: ColorsClientProps) => {
   const router = useRouter();
   const params = useParams();
 
@@ -22,13 +22,13 @@ const BIllBoardsClient = ({ data }: BIllBoardsClientProps) => {
     <>
       <div className="flex items-center justify-between ">
         <Heading
-          title={`Billboards (${data.length})`}
-          description="Manage billboards for your store"
+          title={`Colors (${data.length})`}
+          description="Manage colors for your store"
         />
 
         <Button
           onClick={() => {
-            router.push(`/${params.storeId}/billboards/new`);
+            router.push(`/${params.storeId}/colors/new`);
           }}
         >
           <Plus className=" mr-2 h-4 w-4 " />
@@ -38,12 +38,12 @@ const BIllBoardsClient = ({ data }: BIllBoardsClientProps) => {
 
       <Separator />
 
-      <DataTable columns={columns} data={data} searchKey={"label"} />
-      <Heading title="Api" description="Api calls for billboards" />
+      <DataTable columns={columns} data={data} searchKey={"name"} />
+      <Heading title="Api" description="Api calls for color" />
       <Separator />
-      <ApiList entityIdName="billboardId" entityName="billboards" />
+      <ApiList entityIdName="colorId" entityName="colors" />
     </>
   );
 };
 
-export default BIllBoardsClient;
+export default ColorsClient;

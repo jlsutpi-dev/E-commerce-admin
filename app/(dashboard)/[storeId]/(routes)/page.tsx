@@ -10,6 +10,7 @@ const DashboardPage = async ({ params }: DashboardProps) => {
       id: params.storeId,
     },
   });
+
   return <div>Active store :{store?.name}</div>;
 };
 
