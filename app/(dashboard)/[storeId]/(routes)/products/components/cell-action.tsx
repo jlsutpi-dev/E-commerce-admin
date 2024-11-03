@@ -3,7 +3,7 @@ import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { BillboardColumn } from "./columns";
+import { ProductColumn } from "./columns";
 
 import AlertModal from "@/components/modals/alert-modal";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,7 @@ import {
 import axios from "axios";
 
 interface CellActionProps {
-  data: BillboardColumn;
+  data: ProductColumn;
 }
 const CellAction = ({ data }: CellActionProps) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -34,7 +34,7 @@ const CellAction = ({ data }: CellActionProps) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/products/${data.id}`);
       router.refresh();
       toast.success("Billboard deleted.");
     } catch (error) {
@@ -75,7 +75,7 @@ const CellAction = ({ data }: CellActionProps) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {
-              router.push(`/${params.storeId}/billboards/${data.id}`);
+              router.push(`/${params.storeId}/products/${data.id}`);
             }}
           >
             <Edit className="mr-2 h-4 w-4" />

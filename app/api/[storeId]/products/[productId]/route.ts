@@ -14,7 +14,7 @@ export async function GET(
     }
 
     if (!params.productId) {
-      return new NextResponse("Billboard is required", { status: 400 });
+      return new NextResponse("Product is required", { status: 400 });
     }
 
     const product = await db.product.findUnique({
@@ -64,20 +64,20 @@ export async function PATCH(
     }
 
     if (!images || !images.length) {
-      return new NextResponse("Price is required", { status: 400 });
+      return new NextResponse("images is required", { status: 400 });
     }
-    if (!price) {
-      return new NextResponse("Price is required", { status: 400 });
+    if (!colorId) {
+      return new NextResponse("Color id is required", { status: 400 });
     }
-    if (!price) {
-      return new NextResponse("Price is required", { status: 400 });
+    if (!categoryId) {
+      return new NextResponse("Category id is required", { status: 400 });
     }
-    if (!price) {
-      return new NextResponse("Price is required", { status: 400 });
+    if (!sizeId) {
+      return new NextResponse("Size id is required", { status: 400 });
     }
 
     if (!params.productId) {
-      return new NextResponse("Billboard   is required", { status: 400 });
+      return new NextResponse("Product id is required", { status: 400 });
     }
 
     const storeBYUserId = await db.store.findFirst({
@@ -87,14 +87,34 @@ export async function PATCH(
     if (!storeBYUserId) {
       return new NextResponse("Unauthorized", { status: 403 });
     }
-
+    await db.product.update({
+      where: { id: params.productId },
+      data: {
+        name,
+        price,
+        categoryId,
+        sizeId,
+        colorId,
+        isFeatured,
+        isArchived,
+        images: {
+          deleteMany: {},
+        },
+      },
+    });
     const product = await db.product.update({
       where: { id: params.productId },
-      data: {},
+      data: {
+        images: {
+          createMany: {
+            data: [...images.map((item: { url: string }) => item)],
+          },
+        },
+      },
     });
     return NextResponse.json(product);
   } catch (error) {
-    console.log("[BILLBOARD_PATCH]", error);
+    console.log("[PRODUCT_PATCH]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
@@ -114,7 +134,7 @@ export async function DELETE(
       return new NextResponse("Store is required", { status: 400 });
     }
     if (!params.productId) {
-      return new NextResponse("Billboard is required", { status: 400 });
+      return new NextResponse("Product is required", { status: 400 });
     }
 
     const storeBYUserId = await db.store.findFirst({
@@ -131,7 +151,7 @@ export async function DELETE(
 
     return NextResponse.json(product);
   } catch (error) {
-    console.log("[BILLBOARD _DELETE]", error);
+    console.log("[PRODUCT _DELETE]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
