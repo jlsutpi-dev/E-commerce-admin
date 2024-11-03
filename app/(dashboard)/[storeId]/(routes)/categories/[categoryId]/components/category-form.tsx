@@ -23,12 +23,12 @@ import { Heading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
 import {
   Select,
+  SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { SelectContent } from "@radix-ui/react-select";
 
 const formSchema = z.object({
   name: z.string().min(1),
