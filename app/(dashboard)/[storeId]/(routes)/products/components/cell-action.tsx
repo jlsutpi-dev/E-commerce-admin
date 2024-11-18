@@ -27,7 +27,7 @@ const CellAction = ({ data }: CellActionProps) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("BIllboard id copied to the clipboard");
+    toast.success("Product Id id copied to the clipboard");
   };
 
   //setting data delete handler
@@ -36,10 +36,10 @@ const CellAction = ({ data }: CellActionProps) => {
       setLoading(true);
       await axios.delete(`/api/${params.storeId}/products/${data.id}`);
       router.refresh();
-      toast.success("Billboard deleted.");
+      toast.success("product deleted.");
     } catch (error) {
       toast.error(
-        "Make sure you remove all categories using this billboard first "
+        "Make sure you remove all categories using this product first "
       );
       console.log(error);
       setLoading(false);

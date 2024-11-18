@@ -52,6 +52,7 @@ export async function GET(
     const billboards = await db.billboard.findMany({
       where: { storeId: params.storeId },
     });
+    console.log(billboards);
     return NextResponse.json(billboards);
   } catch (error) {
     console.log("[BILLBOARD_GET]", error);
